@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-app
+  name: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - image: gcr.io/kaizen-356311/my-app:v2
+          name: my-app-container
+          imagePullPolicy: Always
+          resources: {}
+          ports:
+            - containerPort: 3000
+              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+  labels:
+    run: my-app
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: my-app
+  type: LoadBalancer

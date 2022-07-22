@@ -1,0 +1,8 @@
+# prevent node_modules and other unwanted files to get copied in the Docker image.
+
+/node_modules
+/build
+.git
+*.md
+.gitignore
+Dockerfile
